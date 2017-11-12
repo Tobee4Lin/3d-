@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3d场景交互</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        .wrap {
+            position: relative;
+            width: 100%;
+        }
+
+        .wrap .preform {
+            position: relative;
+            width: 100%;
+            height: 460px;
+            background: rgba(230, 190, 22, 1);
+        }
+
+        .wrap .preform .bg_wrap {
+            position: absolute;
+            left: -130px;
+            width: 1100px;
+            height: 100%;
+            margin: 0 auto;
+            z-index: 1;
+        }
+
+        .wrap .preform .bg_wrap img {
+            position: absolute;
+        }
+
+        .preform .bg_wrap img.luce {
+            width: 100%;
+            left: 50%;
+            margin-left: -340px;
+            bottom: 0;
+            z-index: 1;
+        }
+
+        .preform .bg_wrap img.base {
+            width: 100%;
+            left: 50%;
+            margin-left: -440px;
+            bottom: -200px;
+            z-index: 1;
+        }
+
+        .wrap .preform .group {
+            position: relative;
+            margin: auto auto;
+            width: 848px;
+            height: 860px;
+        }
+
+        .wrap .preform .group img {
+            position: absolute;
+        }
+
+        .wrap .preform .group img.colori {
+            width: 517px;
+            height: 101px;
+            top: 250px;
+            left: 190px;
+            z-index: 1;
+        }
+
+        .wrap .preform .group img.uccello {
+            width: 137px;
+            height: 145px;
+            top: 100px;
+            left: 110px;
+            z-index: 2;
+        }
+
+        .wrap .preform .group img.fish2 {
+            width: 315px;
+            height: 291px;
+            top: 140px;
+            left: 260px;
+            z-index: 3;
+        }
+
+        .wrap .preform .group img.cerchio {
+            width: 80px;
+            height: 80px;
+            top: 450px;
+            left: 150px;
+            z-index: 1;
+        }
+
+        .wrap .preform .group img.penna {
+            width: 337px;
+            height: 183px;
+            top: 400px;
+            left: 40px;
+            z-index: 1;
+        }
+
+        .wrap .preform .group img.bolla {
+            width: 176px;
+            height: 175px;
+            top: 320px;
+            left: 10px;
+            z-index: 2;
+        }
+
+        .wrap .preform .group img.ciambella {
+            width: 286px;
+            height: 292px;
+            top: 280px;
+            left: 200px;
+            z-index: 4;
+        }
+
+        .wrap .preform .group img.occhiali {
+            width: 196px;
+            height: 113px;
+            top: 180px;
+            left: 620px;
+            z-index: 5;
+        }
+
+        .wrap .preform .group img.occhiali {
+            width: 196px;
+            height: 113px;
+            top: 70px;
+            left: 620px;
+            z-index: 1;
+        }
+
+        .wrap .preform .group img.mela {
+            width: 109px;
+            height: 102px;
+            top: 200px;
+            left: 506px;
+            z-index: 2;
+        }
+
+        .wrap .preform .group img.cerchio2 {
+            width: 83px;
+            height: 83px;
+            top: 370px;
+            left: 550px;
+            z-index: 1;
+        }
+
+        .wrap .preform .group img.bomboletta {
+            width: 93px;
+            height: 107px;
+            top: 390px;
+            left: 560px;
+            z-index: 2;
+        }
+
+        .wrap .preform .group img.mouse {
+            width: 432px;
+            height: 360px;
+            top: 210px;
+            left: 560px;
+            z-index: 3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="preform">
+            <div class="bg_wrap">
+                <img class="luce" src="images/bg_luce.png">
+                <img class="base" src="images/grafica_base.png">
+            </div>
+            <div class="group">
+                <img class="colori" data-prox="0.016" data-proy="0.02" src="images/colori.png">
+                <img class="bolla" data-prox="0.026" data-proy="0.01" src="images/bolla.png">
+                <img class="bomboletta" data-prox="0.01" data-proy="-0.01" src="images/bomboletta.png">
+                <img class="cerchio" data-prox="0.016" data-proy="0.02" src="images/cerchio.png">
+                <img class="cerchio2" data-prox="0.016" data-proy="0.02" src="images/cerchio2.png">
+                <img class="ciambella" data-prox="0.07" data-proy="0.03" src="images/ciambella.png">
+                <img class="fish2" data-prox="0.01" data-proy="0.01" src="images/fish2.png">
+                <img class="mela" data-prox="-0.016" data-proy="-0.02" src="images/mela.png">
+                <img class="mouse" data-prox="-0.05" data-proy="-0.02" src="images/mouse.png">
+                <img class="occhiali" data-prox="0.016" data-proy="0.02" src="images/occhiali.png">
+                <img class="penna" data-prox="0.01" data-proy="0.01" src="images/penna.png">
+                <img class="uccello" data-prox="0.06" data-proy="0.05" src="images/uccello.png">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            var $show = {
+                $wrap: $(".wrap"),
+                $obj: $(".group").find("img"),
+                _init: function () {
+                    this.preview = this._center();
+                    this._pos();
+                    this._hander();
+                },
+
+                _center: function () {
+                    return {
+                        left: this.$wrap.width() / 2,
+                        top: this.$wrap.height() / 2
+                    }
+                },
+
+                _pos: function () {
+                    $.each(this.$obj, function () {
+                        $(this).data('pos', {
+                            'left': parseFloat($(this).css('left')),
+                            'top': parseFloat($(this).css('top')),
+                            'pro': {
+                                x: $(this).data('prox'),
+                                y: $(this).data('proy')
+                            }
+                        }
+                        )
+                    });
+                },
+
+                _hander: function () {
+                    var This = this;
+                    this.$wrap.on('mousemove', function (event) {
+                        var mx = event.pageX - This.preview.left,
+                            my = event.pageY - This.preview.top;
+                        This._move(mx, my);
+                    });
+                    $(window).on('resize', function () {
+                        $.each(This.$obj, function () {
+                            $(this).removeAttr('style');
+                            This.preview = This._center();
+                            This._pos();
+                        })
+                    });
+                },
+                
+                _move: function (mx, my) {
+                    $.each(this.$obj, function () {
+                        var pos = $(this).data('pos');
+                        $(this).css({
+                            'left': (pos.left + (pos.pro.x * mx)),
+                            'top': (pos.top + (pos.pro.y * my))
+                        });
+                    });
+                }
+            }
+            $show._init();
+        })();
+    </script>
+</body>
+
+</html>
