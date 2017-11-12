@@ -1,6 +1,5 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,36 +11,30 @@
             margin: 0;
             padding: 0;
         }
-
         body {
-            overflow: hidden;
+           overflow: hidden;
         }
-
         .wrap {
             position: relative;
             width: 100%;
         }
-
         .wrap .preform {
             position: relative;
             width: 100%;
             height: 460px;
             background: rgba(230, 190, 22, 1);
         }
-
         .wrap .preform .bg_wrap {
             position: absolute;
             left: -130px;
             width: 1100px;
-            height: 100%;
+            height: 100%;   
             margin: 0 auto;
             z-index: 1;
         }
-
         .wrap .preform .bg_wrap img {
             position: absolute;
         }
-
         .preform .bg_wrap img.luce {
             width: 100%;
             left: 50%;
@@ -49,7 +42,6 @@
             bottom: 0;
             z-index: 1;
         }
-
         .preform .bg_wrap img.base {
             width: 100%;
             left: 50%;
@@ -57,18 +49,15 @@
             bottom: -200px;
             z-index: 1;
         }
-
-        .wrap .preform .group {
+        .wrap .preform .group  {
             position: relative;
             margin: auto auto;
             width: 848px;
             height: 860px;
         }
-
         .wrap .preform .group img {
             position: absolute;
         }
-
         .wrap .preform .group img.colori {
             width: 517px;
             height: 101px;
@@ -76,7 +65,6 @@
             left: 190px;
             z-index: 1;
         }
-
         .wrap .preform .group img.uccello {
             width: 137px;
             height: 145px;
@@ -84,7 +72,6 @@
             left: 110px;
             z-index: 2;
         }
-
         .wrap .preform .group img.fish2 {
             width: 315px;
             height: 291px;
@@ -92,7 +79,6 @@
             left: 260px;
             z-index: 3;
         }
-
         .wrap .preform .group img.cerchio {
             width: 80px;
             height: 80px;
@@ -100,7 +86,6 @@
             left: 150px;
             z-index: 1;
         }
-
         .wrap .preform .group img.penna {
             width: 337px;
             height: 183px;
@@ -108,7 +93,6 @@
             left: 40px;
             z-index: 1;
         }
-
         .wrap .preform .group img.bolla {
             width: 176px;
             height: 175px;
@@ -116,7 +100,6 @@
             left: 10px;
             z-index: 2;
         }
-
         .wrap .preform .group img.ciambella {
             width: 286px;
             height: 292px;
@@ -124,7 +107,6 @@
             left: 200px;
             z-index: 4;
         }
-
         .wrap .preform .group img.occhiali {
             width: 196px;
             height: 113px;
@@ -132,7 +114,6 @@
             left: 620px;
             z-index: 5;
         }
-
         .wrap .preform .group img.occhiali {
             width: 196px;
             height: 113px;
@@ -140,7 +121,6 @@
             left: 620px;
             z-index: 1;
         }
-
         .wrap .preform .group img.mela {
             width: 109px;
             height: 102px;
@@ -148,7 +128,6 @@
             left: 506px;
             z-index: 2;
         }
-
         .wrap .preform .group img.cerchio2 {
             width: 83px;
             height: 83px;
@@ -156,7 +135,6 @@
             left: 550px;
             z-index: 1;
         }
-
         .wrap .preform .group img.bomboletta {
             width: 93px;
             height: 107px;
@@ -164,7 +142,6 @@
             left: 560px;
             z-index: 2;
         }
-
         .wrap .preform .group img.mouse {
             width: 432px;
             height: 360px;
@@ -174,7 +151,6 @@
         }
     </style>
 </head>
-
 <body>
     <div class="wrap">
         <div class="preform">
@@ -198,68 +174,75 @@
             </div>
         </div>
     </div>
+<script src="js/jquery-1.11.1.min.js"></script>
+<script>
+    
+    //立即执行函数 匿名函数自调用  如平时函数的 XX(); 此时调用函数
+    (function() {
+        var $show = {
+            $wrap:$(".wrap"),//定义属性$wrap,获取到页面wrap节点
+            $obj:$(".group").find("img"),//通过find方法找到group下的图片
+            _init:function() {
+                this.preview = this._center();
+                this._pos();
+                this._hander();
+            },
 
-    <script>
-        (function () {
-            var $show = {
-                $wrap: $(".wrap"),
-                $obj: $(".group").find("img"),
-                _init: function () {
-                    this.preview = this._center();
-                    this._pos();
-                    this._hander();
-                },
-
-                _center: function () {
-                    return {
-                        left: this.$wrap.width() / 2,
-                        top: this.$wrap.height() / 2
-                    }
-                },
-
-                _pos: function () {
-                    $.each(this.$obj, function () {
-                        $(this).data('pos', {
-                            'left': parseFloat($(this).css('left')),
-                            'top': parseFloat($(this).css('top')),
-                            'pro': {
-                                x: $(this).data('prox'),
-                                y: $(this).data('proy')
-                            }
-                        }
-                        )
-                    });
-                },
-
-                _hander: function () {
-                    var This = this;
-                    this.$wrap.on('mousemove', function (event) {
-                        var mx = event.pageX - This.preview.left,
-                            my = event.pageY - This.preview.top;
-                        This._move(mx, my);
-                    });
-                    $(window).on('resize', function () {
-                        $.each(This.$obj, function () {
-                            $(this).removeAttr('style');
-                            This.preview = This._center();
-                            This._pos();
-                        })
-                    });
-                },
-                
-                _move: function (mx, my) {
-                    $.each(this.$obj, function () {
-                        var pos = $(this).data('pos');
-                        $(this).css({
-                            'left': (pos.left + (pos.pro.x * mx)),
-                            'top': (pos.top + (pos.pro.y * my))
-                        });
-                    });
+            //获取中心点，图片围绕该中心点
+            _center:function() {
+                return {
+                    left:this.$wrap.width() / 2,
+                    top:this.$wrap.height() / 2
                 }
-            }
-            $show._init();
-        })();
-    </script>
-</body>
+            },
 
+            //获取每张图片的left和top值
+            _pos:function() {
+                $.each(this.$obj, function() {//$obj即为每张图片
+                    $(this).data('pos',{//data方法用于保存数据
+                        'left':parseInt($(this).css('left')),//css方法既可以用键值对赋值，也可以直接取得css属性。此处取值
+                        'top':parseInt($(this).css('top')),
+                        'pro':{
+                            x:$(this).data('prox'), //0.016,利用data方法获得
+                            y:$(this).data('proy'), //0.02,利用data方法获得
+                        }
+                    })
+                })
+            },
+
+            //鼠标移动时图片移动的值
+            _hander:function() {
+                var This = this;//保存外部$show,下面才可以使用
+                this.$wrap.on('mousemove',function(event) {
+                    var mx = event.pageX - This.preview.left;//得到图片随着鼠标移动所应该移动的横轴距离
+                    var my = event.pageY - This.preview.top;//得到图片随着鼠标移动所应该移动的纵轴距离;
+                    This._move(mx,my);
+                });
+                $(window).on('resize',function() {
+                    $.each(This.$obj,function() {
+                        $(this).removeAttr('style');
+                        This.preview = This._center();
+                        This._pos();
+                    })
+                })
+            },
+
+            //让图片移动，且具有摩擦力
+            _move:function(mx, my) {
+                $.each(this.$obj, function() {
+                    var pos = $(this).data('pos');
+                    $(this).css({
+                        'left':(pos.left+(pos.pro.x * mx)),
+                        'top':(pos.top+(pos.pro.y * my))
+                    })
+                })
+            }
+
+        }
+        //console.log($show._center());
+        $show._init();
+    })()
+</script>
+    
+</body>
 </html>
